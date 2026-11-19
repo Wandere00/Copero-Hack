@@ -1,0 +1,24 @@
+(() => {
+  for (const element of document.querySelectorAll("*")) {
+    const fiberKey = Object.keys(element).find((key) =>
+      key.startsWith("__reactFiber$")
+    );
+ 
+    if (!fiberKey) continue;
+ 
+    for (let fiber = element[fiberKey]; fiber; fiber = fiber.return) {
+      const player = fiber.memoizedProps?.state?.player;
+ 
+      if (player) {
+        player.age = 18;
+        player.overall = 99;
+        player.marketValue = 300000000;
+ 
+        console.log("Jugador encontrado y modificado:", player);
+        return player;
+      }
+    }
+  }
+ 
+  console.warn("No se encontró el jugador dentro de las propiedades de React.");
+})();
